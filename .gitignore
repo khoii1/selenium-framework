@@ -1,0 +1,27 @@
+# Maven build output
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Screenshots từ test failures
+screenshots/
+
+# Environment variables / secrets
+.env
+
+# Log files
+*.log
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
