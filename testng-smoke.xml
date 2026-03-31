@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Smoke Test Suite" verbose="1">
+    <!-- browser duoc truyen tu -Dbrowser= khi chay Maven -->
+    <parameter name="browser" value="chrome"/>
+    <parameter name="env" value="dev"/>
+
+    <test name="Login Smoke Tests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.lab9.tests.LoginTest"/>
+        </classes>
+    </test>
+</suite>

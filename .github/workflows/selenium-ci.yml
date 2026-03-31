@@ -10,8 +10,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  selenium-tests:
+  run-tests:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        browser: [chrome, firefox]   # Tao 2 job chay song song
+      fail-fast: false               # Chrome fail khong dung Firefox
 
     steps:
       - name: Checkout source code
@@ -24,27 +29,21 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Run Selenium Tests
+      - name: Chay test (${{ matrix.browser }})
         env:
           CI: true
         run: |
-          mvn test \
-            -Dbrowser=chrome \
+          mvn clean test \
+            -Dbrowser=${{ matrix.browser }} \
             -Denv=dev \
-            -Dsurefire.suiteXmlFiles=testng.xml
+            -DsuiteXmlFile=testng-smoke.xml
 
-      - name: Upload Surefire Reports
+      - name: Luu ket qua (${{ matrix.browser }})
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
-          path: target/surefire-reports/
-          retention-days: 7
-
-      - name: Upload Screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: target/screenshots/
+          name: test-results-${{ matrix.browser }}
+          path: |
+            target/surefire-reports/
+            target/screenshots/
           retention-days: 7
