@@ -21,12 +21,4 @@ public class BaseTestDemoTest extends BaseTest {
         String currentUrl = getDriver().getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("saucedemo.com"), "URL should contain 'saucedemo.com'. Actual: " + currentUrl);
     }
-
-    @Test
-    public void failTestWrongTitleAssertion() {
-        // Cố tình assert sai để pipeline đỏ và trigger screenshot
-        String title = getDriver().getTitle();
-        Assert.assertEquals(title, "Wrong Title - This Will Fail",
-                "Intentional wrong assertion to demonstrate CI failure and screenshot capture.");
-    }
 }
